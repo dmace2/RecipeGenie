@@ -14,7 +14,7 @@ struct NutrientMacroView: View {
 
     var body: some View {
         VStack {
-            ProgressView(value: max(quant / target, 1.0))
+            ProgressView(value: min(quant / target, 1.0))
             Text("\(String(format: "%.0f", quant / target * 100))%")
                 .font(.caption).foregroundColor(.secondary)
             Text(name).font(.caption.weight(.bold))
