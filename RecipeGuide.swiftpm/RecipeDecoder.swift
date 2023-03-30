@@ -121,10 +121,14 @@ class RecipeDecoder: ObservableObject {
         }
     }
 
+    func refresh() {
+        recipeList = fullRecipes.shuffled()
+    }
+
     func updateSharedList(for searchTerm: String) {
         withAnimation {
             guard searchTerm != "" else {
-                withAnimation { recipeList = fullRecipes }
+                recipeList = fullRecipes
                 return
             }
             recipeList = fullRecipes.filter { $0.title.lowercased().contains(searchTerm.lowercased()) }
@@ -132,17 +136,17 @@ class RecipeDecoder: ObservableObject {
     }
 
     func updateSharedList(toMatch toggle: Bool) {
-        guard  toggle else {
-            recipeList = fullRecipes
-            return
-        }
-        let request = CDIngredient.fetchRequest()
-        guard let vals = try? Persistence.shared.container.viewContext.fetch(request) as? [CDIngredient] else {
-//        guard let vals = try? context.fetch(NSFetchRequest(entityName: "CDIngredient")) as? [CDIngredient] else {
-            print("failed to get from CD")
-            return
-        }
         withAnimation {
+            guard  toggle else {
+                recipeList = fullRecipes
+                return
+            }
+            let request = CDIngredient.fetchRequest()
+            guard let vals = try? Persistence.shared.container.viewContext.fetch(request) as? [CDIngredient] else {
+                //        guard let vals = try? context.fetch(NSFetchRequest(entityName: "CDIngredient")) as? [CDIngredient] else {
+                print("failed to get from CD")
+                return
+            }
             let mappedVals = vals.map { Element(text: $0.name)}
             recipeList = recipeList.compactMap({ recipe in
                 var good = true

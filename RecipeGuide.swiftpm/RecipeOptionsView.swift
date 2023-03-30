@@ -18,24 +18,21 @@ struct RecipeOptionsView: View {
                     LazyVStack {
                         Toggle("Based On Your Ingredients", isOn: $recipeManager.withYourIngredients)
                         ForEach(recipeManager.recipeList) { item in
-                            GroupBox {
-                                NavigationLink(destination: RecipeView(recipe: item)) {
-                                    HStack(alignment: .center) {
-                                        Image(systemName: "fork.knife")
-                                            .resizable().scaledToFit()
-                                            .frame(height: 30)
-                                        Text(item.title)
-                                            .multilineTextAlignment(.leading)
-                                    }
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                }
+                            NavigationLink(destination: RecipeView(recipe: item)) {
+                                RecipeCardView(recipe: item)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.bottom)
                             }
                         }
                         if recipeManager.isLoading {
                             ProgressView("Loading Recipes...")
                         }
-                    }.padding(.horizontal)
+                    }
+                    .padding(.horizontal)
                 }
+            }
+            .refreshable {
+                recipeManager.refresh()
             }
             .searchable(text: $recipeManager.searchText, placement: .toolbar)
             .onReceive(recipeManager.$searchText.debounce(for: 0.8, scheduler: RunLoop.main)) { searchTerm in

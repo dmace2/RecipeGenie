@@ -57,12 +57,11 @@ struct SelectIngredientView: View {
                 List {
                     ForEach(ingredientManager.searchedIngredients, id: \.text) { item in
                         HStack {
-                            Text(item.text)
+                            IngredientView(ingredient: item)
                             Spacer()
-                            if item == selection {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.accentColor)
-                            }
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.accentColor)
+                                .opacity(item == selection ? 1 : 0)
                         }.onTapGesture { withAnimation { selection = item } }
                     }
                 }
