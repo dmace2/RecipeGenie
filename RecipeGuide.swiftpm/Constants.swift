@@ -17,6 +17,7 @@ class Constants {
     }()
     static var defaultsOnboardingCompletedKey = "OnboardingCompleted"
     static var pantryEditedNotif = Notification.Name("PantryListEdited")
+    static var calorieTarget = 2000
 
 }
 

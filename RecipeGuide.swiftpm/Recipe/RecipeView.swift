@@ -62,7 +62,7 @@ struct RecipeView: View {
                 Section {
                     FSAView(elem: recipe.fsa_lights_per100g)
                     // TODO: add nav link for nutrition per ingredient
-                    TextSpacerTextView(label: "Energy", otherContent: "\(String(format: "%.2f", recipe.nutr_values_per100g.energy)) J")
+                    TextSpacerTextView(label: "Energy", otherContent: "\(String(format: "%.2f", recipe.nutr_values_per100g.energy)) cal")
                     TextSpacerTextView(label: "Fat", otherContent: "\(String(format: "%.2f", recipe.nutr_values_per100g.fat)) g")
                     TextSpacerTextView(label: "Protein", otherContent: "\(String(format: "%.2f", recipe.nutr_values_per100g.protein)) g")
                     TextSpacerTextView(label: "Salt", otherContent: "\(String(format: "%.2f", recipe.nutr_values_per100g.salt)) g")
@@ -76,9 +76,16 @@ struct RecipeView: View {
                 Section {
                     ForEach(recipe.ingredients.indices, id: \.self) { idx in
                         let ingredient = recipe.ingredients[idx]
+                        let shortIngredient = ingredient.text.components(separatedBy: ", ")[0]
                         let quantity = recipe.quantity[idx]
                         let unit = recipe.unit[idx]
-                        IngredientView(ingredient: ingredient, quantity: quantity, unit: unit)
+                        NavigationLink(
+                            destination: NutrientView(name: shortIngredient,
+                                                      nutrient: recipe.nutr_per_ingredient[idx],
+                                                      quantity: quantity.text,
+                                                      unit: unit.text)) {
+                                                          IngredientView(ingredient: ingredient, quantity: quantity, unit: unit)
+                                                      }
                     }
                 } header: {
                     Label("Ingredients", systemImage: "list.bullet.circle.fill")
@@ -88,7 +95,6 @@ struct RecipeView: View {
 
                 Section {
                     let instr_para = getSentences(from: recipe.instructions.map({$0.text}).joined(separator: " "))
-//                    Text(instr_para)
                     ForEach(instr_para, id: \.self) { instruction in
                         Text(instruction)
                             .listRowSeparator(.hidden)
