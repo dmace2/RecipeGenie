@@ -42,10 +42,12 @@ struct PantryView: View {
                 }
             .navigationTitle("Pantry")
             .toolbar {
-                let destination = SelectIngredientView(completion: { ingredient in
-                    guard items.filter({$0.name == ingredient.text}).isEmpty else { return }
-                    let pantryItem = CDIngredient(context: viewContext)
-                    pantryItem.name = ingredient.text
+                let destination = SelectIngredientView(completion: { ingredients in
+                    ingredients.forEach { ingredient in
+                        guard items.filter({$0.name == ingredient.text}).isEmpty else { return }
+                        let pantryItem = CDIngredient(context: viewContext)
+                        pantryItem.name = ingredient.text
+                    }
                     viewContext.perform {
                         try! viewContext.save()
                     }

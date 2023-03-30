@@ -45,9 +45,9 @@ struct SelectIngredientView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var ingredientManager = IngredientManager(
         fullIngredientList: RecipeDecoder.shared.fullIngredients)
-    var completion: ((Element) -> Void)?
+    var completion: (([Element]) -> Void)?
 
-    @State var selection: Element?
+    @State var selectedItems: [Element] = []
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -61,8 +61,13 @@ struct SelectIngredientView: View {
                             Spacer()
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(.accentColor)
-                                .opacity(item == selection ? 1 : 0)
-                        }.onTapGesture { withAnimation { selection = item } }
+                                .opacity(selectedItems.contains(item) ? 1 : 0)
+                        }.onTapGesture {
+                            withAnimation {
+                                if !selectedItems.contains(item) {
+                                    selectedItems.append(item)
+                                } else { selectedItems.remove(at: selectedItems.firstIndex(of: item)!)}
+                            } }
                     }
                 }
                 .searchable(text: $ingredientManager.searchText)
@@ -70,9 +75,9 @@ struct SelectIngredientView: View {
                     ingredientManager.search(searchTerm)
                 }
             }
-            if let selection {
+            if !selectedItems.isEmpty {
                 Button("Add to Pantry") {
-                    completion?(selection)
+                    completion?(selectedItems)
                     dismiss()
                 }
                 .buttonStyle(.borderedProminent)
