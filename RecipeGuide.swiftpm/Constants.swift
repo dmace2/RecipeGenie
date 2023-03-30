@@ -16,6 +16,7 @@ class Constants {
         return grad
     }()
     static var defaultsOnboardingCompletedKey = "OnboardingCompleted"
+    static var pantryEditedNotif = Notification.Name("PantryListEdited")
 
 }
 

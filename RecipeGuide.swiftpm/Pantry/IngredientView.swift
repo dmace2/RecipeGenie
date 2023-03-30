@@ -1,5 +1,5 @@
 //
-//  IngredientsView.swift
+//  IngredientView.swift
 //  
 //
 //  Created by Dylan Mace on 3/29/23.

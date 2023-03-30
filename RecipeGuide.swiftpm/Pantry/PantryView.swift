@@ -36,26 +36,30 @@ struct PantryView: View {
                                         viewContext.delete(items[idx])
                                     }
                                     try? viewContext.save()
+                                    NotificationCenter.default.post(name: Constants.pantryEditedNotif, object: nil)
                                 }
                             }.listStyle(.plain)
                         }
                 }
             .navigationTitle("Pantry")
             .toolbar {
-                let destination = SelectIngredientView(completion: { ingredients in
-                    ingredients.forEach { ingredient in
-                        guard items.filter({$0.name == ingredient.text}).isEmpty else { return }
-                        let pantryItem = CDIngredient(context: viewContext)
-                        pantryItem.name = ingredient.text
-                    }
-                    viewContext.perform {
-                        try! viewContext.save()
-                    }
-                })
+                let destination = SelectIngredientView(completion: { addItems($0) })
                 NavigationLink(destination: destination) {
                     Image(systemName: "plus")
                 }
             }
+        }
+    }
+
+    func addItems(_ ingredients: [Element]) {
+        ingredients.forEach { ingredient in
+            guard items.filter({$0.name == ingredient.text}).isEmpty else { return }
+            let pantryItem = CDIngredient(context: viewContext)
+            pantryItem.name = ingredient.text
+        }
+        viewContext.perform {
+            try! viewContext.save()
+            NotificationCenter.default.post(name: Constants.pantryEditedNotif, object: nil)
         }
     }
 }

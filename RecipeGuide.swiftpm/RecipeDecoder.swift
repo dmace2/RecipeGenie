@@ -8,8 +8,11 @@
 import Foundation
 import SwiftUI
 import CoreData
+import Combine
 
 class RecipeDecoder: ObservableObject {
+    static var shared = RecipeDecoder()
+
     @Published var recipeList: [Recipe] = []
     private var fullRecipes: [Recipe] = []
     private(set) var fullIngredients: [Element] = []
@@ -19,12 +22,22 @@ class RecipeDecoder: ObservableObject {
     @Published var searchText = ""
     @Published var withYourIngredients = false
 
-    private var decodeTask: Task<Void, Never>?
 
-    static var shared = RecipeDecoder()
+    var ingredientCancellable: AnyCancellable?
+    private var decodeTask: Task<Void, Never>?
 
     private init() {
         self.decodeRecipeList()
+        ingredientCancellable = NotificationCenter.default
+            .publisher(for: Constants.pantryEditedNotif)
+            .sink { _ in
+                self.updateFilter(searchText: self.searchText, toggle: self.withYourIngredients)
+            }
+    }
+
+    deinit {
+        ingredientCancellable?.cancel()
+        decodeTask?.cancel()
     }
 
 
@@ -74,8 +87,7 @@ class RecipeDecoder: ObservableObject {
 
     private func filterByIngredients(recipes: inout [Recipe]) {
         let request = CDIngredient.fetchRequest()
-        guard let vals = try? CoreDataManager.shared.persistentContainer
-            .viewContext.fetch(request) as? [CDIngredient] else {
+        guard let vals = try? Persistence.shared.container.viewContext.fetch(request) as? [CDIngredient] else {
             print("failed to get from CD")
             return
         }
