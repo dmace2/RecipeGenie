@@ -38,6 +38,7 @@ struct AppLaunchView: View {
 
                 }
                 .padding(.top, 100)
+                .padding(.bottom)
                 .opacity(0.9)
                 .foregroundColor(.black)
         }

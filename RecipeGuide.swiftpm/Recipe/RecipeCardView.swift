@@ -20,11 +20,10 @@ struct RecipeCardView: View {
                 .padding()
                 .font(.title.weight(.bold))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .frame(height: 100)
                 .shadow(radius: 10)
                 .background { Color.black.opacity(0.6).blur(radius: 5).blendMode(.darken) }
         }
-        .frame(maxWidth: .infinity, maxHeight: 300)
+        .frame(maxWidth: .infinity, maxHeight: 450)
         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
     }
 }

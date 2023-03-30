@@ -9,73 +9,6 @@ import Foundation
 import SwiftUI
 import CoreData
 
-
-enum LightColor: String, Codable {
-    case orange
-    case red
-    case green
-
-    var view: any View {
-        let name = (self == .green) ? "checkmark.circle.fill" : (self == .orange) ? "exclamationmark.triangle.fill" : "exclamationmark.octagon.fill"
-        return Image(systemName: name)
-            .resizable().scaledToFit()
-            .frame(width: 30, height: 30)
-            .foregroundColor(Color(wordName: rawValue))
-    }
-}
-
-struct FSALights: Codable, Hashable {
-    var fat: LightColor
-    var salt: LightColor
-    var saturates: LightColor
-    var sugars: LightColor
-}
-
-struct Element: Codable, Hashable {
-    var text: String
-}
-
-struct Nutrition: Codable, Hashable {
-    var fat: Float
-    var nrg: Float
-    var pro: Float
-    var sat: Float
-    var sod: Float
-    var sug: Float
-}
-
-struct Nutrition_100g: Codable, Hashable {
-    var energy: Float
-    var fat: Float
-    var protein: Float
-    var salt: Float
-    var saturates: Float
-    var sugars: Float
-}
-
-
-struct Recipe: Identifiable, Codable, Equatable, Hashable {
-    static func == (lhs: Recipe, rhs: Recipe) -> Bool {
-        return lhs.id == rhs.id
-    }
-
-    var fsa_lights_per100g: FSALights
-    var id: String
-    var ingredients: [Element]
-    var instructions: [Element]
-    var nutr_per_ingredient: [Nutrition]
-    var nutr_values_per100g: Nutrition_100g
-    var partition: String
-    var quantity: [Element]
-    var title: String
-    var unit: [Element]
-    var url: String
-    var weight_per_ingr: [Float]
-}
-
-
-
-
 class RecipeDecoder: ObservableObject {
     @Published var recipeList: [Recipe] = []
     private var fullRecipes: [Recipe] = []
@@ -112,7 +45,7 @@ class RecipeDecoder: ObservableObject {
                     withAnimation {
                         self.fullRecipes = recipes.shuffled()
                         self.fullIngredients = Array(Set(recipes.map({$0.ingredients}).flatMap({$0})))
-                        self.recipeList = self.fullRecipes
+                        self.updateFilter(searchText: self.searchText, toggle: self.withYourIngredients)
                     }
                 }
             } catch {
@@ -122,43 +55,77 @@ class RecipeDecoder: ObservableObject {
     }
 
     func refresh() {
-        recipeList = fullRecipes.shuffled()
+        updateFilter(searchText: searchText, toggle: withYourIngredients)
+        recipeList.shuffle()
     }
 
-    func updateSharedList(for searchTerm: String) {
+    func updateFilter(searchText: String, toggle: Bool) {
+        var tmpResults = fullRecipes
         withAnimation {
-            guard searchTerm != "" else {
-                recipeList = fullRecipes
-                return
+            if searchText != "" {
+                tmpResults = tmpResults.filter { $0.title.lowercased().contains(searchText.lowercased()) }
             }
-            recipeList = fullRecipes.filter { $0.title.lowercased().contains(searchTerm.lowercased()) }
+            if toggle {
+                filterByIngredients(recipes: &tmpResults)
+            }
+            recipeList = tmpResults
         }
     }
 
-    func updateSharedList(toMatch toggle: Bool) {
-        withAnimation {
-            guard  toggle else {
-                recipeList = fullRecipes
-                return
-            }
-            let request = CDIngredient.fetchRequest()
-            guard let vals = try? Persistence.shared.container.viewContext.fetch(request) as? [CDIngredient] else {
-                //        guard let vals = try? context.fetch(NSFetchRequest(entityName: "CDIngredient")) as? [CDIngredient] else {
-                print("failed to get from CD")
-                return
-            }
-            let mappedVals = vals.map { Element(text: $0.name)}
-            recipeList = recipeList.compactMap({ recipe in
-                var good = true
-                recipe.ingredients.forEach {
-                    if !mappedVals.contains($0) {
-                        good = false
-                    }
+    private func filterByIngredients(recipes: inout [Recipe]) {
+        let request = CDIngredient.fetchRequest()
+        guard let vals = try? CoreDataManager.shared.persistentContainer
+            .viewContext.fetch(request) as? [CDIngredient] else {
+            print("failed to get from CD")
+            return
+        }
+        let mappedVals = vals.map { Element(text: $0.name)}
+        recipes = recipes.compactMap({ recipe in
+            var good = true
+            recipe.ingredients.forEach {
+                if !mappedVals.contains($0) {
+                    good = false
                 }
-                return good ? recipe : nil
-            })
-        }
+            }
+            return good ? recipe : nil
+        })
     }
+
+//    func updateSharedList(for searchTerm: String) {
+//        withAnimation {
+//            guard searchTerm != "" else {
+//                recipeList = fullRecipes
+//                return
+//            }
+//            recipeList = fullRecipes.filter { $0.title.lowercased().contains(searchTerm.lowercased()) }
+//        }
+//    }
+//
+//    func updateSharedList(toMatch toggle: Bool) {
+//        withAnimation {
+//            guard  toggle else {
+//                recipeList = fullRecipes
+//                return
+//            }
+//            let request = CDIngredient.fetchRequest()
+//            guard let vals = try? Persistence.shared.container.viewContext.fetch(request) as? [CDIngredient] else {
+//                //        guard let vals = try? context.fetch(NSFetchRequest(entityName: "CDIngredient")) as? [CDIngredient] else {
+//                print("failed to get from CD")
+//                return
+//            }
+//            let mappedVals = vals.map { Element(text: $0.name)}
+//            recipeList = recipeList.compactMap({ recipe in
+//                var good = true
+//                recipe.ingredients.forEach {
+//                    if !mappedVals.contains($0) {
+//                        good = false
+//                    }
+//                }
+//                return good ? recipe : nil
+//            })
+//        }
+//    }
+    
 
     func decodeSampleRecipe() -> Recipe {
         let url = Bundle.main.url(forResource: "sample_recipe", withExtension: "json")!

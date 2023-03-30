@@ -47,6 +47,7 @@ struct CompleteOnboardingView: View {
             }
             .padding(.top, 100)
             .padding(.horizontal, 40)
+            .padding(.bottom)
             .opacity(0.9)
             .foregroundColor(.black)
         }

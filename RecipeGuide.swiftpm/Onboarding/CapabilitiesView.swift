@@ -74,6 +74,7 @@ struct CapabilitiesView: View {
 
             }
             .padding(.top, 100)
+            .padding(.bottom)
             .padding(.horizontal, 40)
             .opacity(0.9)
             .foregroundColor(.black)
