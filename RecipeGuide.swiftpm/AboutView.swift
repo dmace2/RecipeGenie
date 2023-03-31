@@ -38,7 +38,7 @@ struct AboutView: View {
                 HStack {
                     Text("Dataset Credits").bold()
                     Spacer()
-                    Link("Massachusetts Institute of Technology", destination: URL(string:"http://pic2recipe.csail.mit.edu/")!)
+                    Link("MIT Research", destination: URL(string:"http://pic2recipe.csail.mit.edu/")!)
                 }
             } header: {
                 Label("Credits", systemImage: "megaphone.fill")
