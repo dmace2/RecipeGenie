@@ -36,11 +36,9 @@ struct RecipeOptionsView: View {
             }
             .searchable(text: $recipeManager.searchText, placement: .toolbar)
             .onReceive(recipeManager.$searchText.debounce(for: 0.8, scheduler: RunLoop.main)) { searchTerm in
-//                recipeManager.updateSharedList(for: searchTerm)
                 recipeManager.updateFilter(searchText: searchTerm, toggle: recipeManager.withYourIngredients)
             }
             .onReceive(recipeManager.$withYourIngredients.debounce(for: 0.5, scheduler: RunLoop.main)) { toggleVal in
-//                recipeManager.updateSharedList(toMatch: toggleVal)
                 recipeManager.updateFilter(searchText: recipeManager.searchText,toggle: toggleVal)
             }
             .navigationTitle("Recipes")

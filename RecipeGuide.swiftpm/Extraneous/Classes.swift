@@ -17,7 +17,7 @@ enum LightColor: String, Codable {
         let name = (self == .green) ? "checkmark.circle.fill" : (self == .orange) ? "exclamationmark.triangle.fill" : "exclamationmark.octagon.fill"
         return Image(systemName: name)
             .resizable().scaledToFit()
-            .frame(width: 30, height: 30)
+            .frame(width: 20, height: 20)
             .foregroundColor(Color(wordName: rawValue))
     }
 }

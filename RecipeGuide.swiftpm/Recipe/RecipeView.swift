@@ -16,20 +16,20 @@ struct FSAView: View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: 4), spacing: 20) {
             VStack {
                 Text("Fats")
-                    .font(.callout).bold()
+                    .font(.caption).bold()
                 AnyView(elem.fat.view)
             }
             VStack {
                 Text("Salt")
-                    .font(.callout).bold()
+                    .font(.caption).bold()
                 AnyView(elem.salt.view)
             }
             VStack {
-                Text("Saturates").font(.callout).bold()
+                Text("Saturates").font(.caption).bold()
                 AnyView(elem.saturates.view)
             }
             VStack {
-                Text("Sugar").font(.callout).bold()
+                Text("Sugar").font(.caption).bold()
                 AnyView(elem.sugars.view)
             }
         }

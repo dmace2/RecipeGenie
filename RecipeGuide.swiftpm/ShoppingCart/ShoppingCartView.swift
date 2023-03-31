@@ -41,8 +41,9 @@ struct ShoppingCartView: View {
                                     ForEach(recipes, id: \.id) { elem in
                                         GroupBox {
                                             NavigationLink(destination: RecipeView(recipe: elem)) {
-                                                RecipeOverviewView(recipe: elem)
-                                            }
+                                                RecipeOverviewView(recipe: elem).foregroundColor(.primary)
+                                                    .frame(maxWidth: .infinity)
+                                            }.frame(maxWidth: .infinity)
                                         }
                                         .listRowSeparator(.hidden)
                                     }.onDelete {

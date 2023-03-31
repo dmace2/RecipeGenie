@@ -15,13 +15,21 @@ struct AboutView: View {
                     Image(systemName: "fork.knife").resizable().scaledToFit()
                         .frame(height: 150)
                     Text("RecipeGenie").font(.largeTitle.weight(.heavy))
-                }.frame(maxWidth: .infinity)
+                }.frame(maxWidth: .infinity).listRowBackground(Color.clear)
             }
 
             Section {
                 CapabilityListView(withPadding: false)
             } header: {
                 Label("Description", systemImage: "note.text")
+                    .font(.headline).foregroundColor(.primary)
+            }
+
+            Section {
+                Text("**NOTE**: These percentages are based a standard diet of 2000 calories per day. This may not match your needs as an individual and should not be taken as medical advice.").bold()
+                Text("**NOTE**: These recipes are curated from a dataset collected by researchers at the Massachussetts Institute of Technology. No verification has been completed on the accuracy of the recipe ingredients, or of any nutrititional information associated with them. Incomplete recipes and inaccurate nutrition measurement may be present.").bold()
+            } header: {
+                Label("Disclaimers", systemImage: "exclamationmark.triangle")
                     .font(.headline).foregroundColor(.primary)
             }
 
