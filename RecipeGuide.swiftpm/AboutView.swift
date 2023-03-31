@@ -11,10 +11,12 @@ struct AboutView: View {
     var body: some View {
         List {
             Section {
-                VStack {
-                    Image(systemName: "fork.knife").resizable().scaledToFit()
-                        .frame(height: 150)
-                    Text("RecipeGenie").font(.largeTitle.weight(.heavy))
+                HStack {
+                    Image(systemName: "fork.knife")
+                        .resizable().scaledToFit()
+                        .frame(height: 50)
+                    Text("RecipeGenie")
+                        .font(.largeTitle.weight(.heavy))
                 }.frame(maxWidth: .infinity).listRowBackground(Color.clear)
             }
 
