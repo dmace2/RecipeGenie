@@ -93,6 +93,9 @@ struct NutrientView: View {
                 } header: {
                     Label("Percent of Daily Goals", systemImage: "target")
                         .font(.headline).foregroundColor(.orange)
+                } footer: {
+                    Text("**NOTE**: These percentages are based a standard diet of 2000 calories per day. This may not match your needs as an individual and should not be taken as medical advice.")
+                        .font(.caption)
                 }
 
                 Section {
