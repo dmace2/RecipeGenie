@@ -10,12 +10,12 @@ import Combine
 import SwiftUI
 
 class IngredientManager: ObservableObject {
-    var fullIngredientList: [Element]
-    @Published var searchedIngredients: [Element] = []
+    var fullIngredientList: [TextItem]
+    @Published var searchedIngredients: [TextItem] = []
     @Published var searchText = ""
     var anyCancellable: AnyCancellable?
 
-    init(fullIngredientList: [Element]) {
+    init(fullIngredientList: [TextItem]) {
         self.fullIngredientList = fullIngredientList
         self.searchedIngredients = fullIngredientList
 

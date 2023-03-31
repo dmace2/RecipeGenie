@@ -10,15 +10,17 @@ import SwiftUI
 struct ContainerView: View {
     var body: some View {
         TabView {
-            RecipeOptionsView()
-                .tabItem {
-                    Label("Recipes", systemImage: "takeoutbag.and.cup.and.straw.fill")
-                }
+            RecipeOptionsView().tabItem {
+                Label("Recipes", systemImage: "takeoutbag.and.cup.and.straw.fill")
+            }
 
-            PantryView()
-                .tabItem {
-                    Label("Pantry", systemImage: "list.clipboard.fill")
-                }
+            PantryView().tabItem {
+                Label("Pantry", systemImage: "list.clipboard.fill")
+            }
+
+            ShoppingCartView().tabItem {
+                Label("Cart", systemImage: "cart.fill")
+            }
         }
     }
 }

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct IngredientView: View {
-    var ingredient: Element
-    var quantity: Element?
-    var unit: Element?
+    var ingredient: TextItem
+    var quantity: TextItem?
+    var unit: TextItem?
 
     var body: some View {
         VStack(alignment: .leading) {

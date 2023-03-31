@@ -12,9 +12,9 @@ struct SelectIngredientView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var ingredientManager = IngredientManager(
         fullIngredientList: RecipeDecoder.shared.fullIngredients)
-    var completion: (([Element]) -> Void)?
+    var completion: (([TextItem]) -> Void)?
 
-    @State var selectedItems: [Element] = []
+    @State var selectedItems: [TextItem] = []
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -43,7 +43,7 @@ struct SelectIngredientView: View {
                 }
             }
             if !selectedItems.isEmpty {
-                Button("Add to Pantry") {
+                Button("Add") {
                     completion?(selectedItems)
                     dismiss()
                 }

@@ -14,8 +14,8 @@ class RecipeDecoder: ObservableObject {
     static var shared = RecipeDecoder()
 
     @Published var recipeList: [Recipe] = []
-    private var fullRecipes: [Recipe] = []
-    private(set) var fullIngredients: [Element] = []
+    @Published var fullRecipes: [Recipe] = []
+    private(set) var fullIngredients: [TextItem] = []
 
     @Published var isLoading: Bool = false
 
@@ -91,7 +91,7 @@ class RecipeDecoder: ObservableObject {
             print("failed to get from CD")
             return
         }
-        let mappedVals = vals.map { Element(text: $0.name)}
+        let mappedVals = vals.map { TextItem(text: $0.name)}
         recipes = recipes.compactMap({ recipe in
             var good = true
             recipe.ingredients.forEach {
@@ -102,43 +102,6 @@ class RecipeDecoder: ObservableObject {
             return good ? recipe : nil
         })
     }
-
-//    func updateSharedList(for searchTerm: String) {
-//        withAnimation {
-//            guard searchTerm != "" else {
-//                recipeList = fullRecipes
-//                return
-//            }
-//            recipeList = fullRecipes.filter { $0.title.lowercased().contains(searchTerm.lowercased()) }
-//        }
-//    }
-//
-//    func updateSharedList(toMatch toggle: Bool) {
-//        withAnimation {
-//            guard  toggle else {
-//                recipeList = fullRecipes
-//                return
-//            }
-//            let request = CDIngredient.fetchRequest()
-//            guard let vals = try? Persistence.shared.container.viewContext.fetch(request) as? [CDIngredient] else {
-//                //        guard let vals = try? context.fetch(NSFetchRequest(entityName: "CDIngredient")) as? [CDIngredient] else {
-//                print("failed to get from CD")
-//                return
-//            }
-//            let mappedVals = vals.map { Element(text: $0.name)}
-//            recipeList = recipeList.compactMap({ recipe in
-//                var good = true
-//                recipe.ingredients.forEach {
-//                    if !mappedVals.contains($0) {
-//                        good = false
-//                    }
-//                }
-//                return good ? recipe : nil
-//            })
-//        }
-//    }
-    
-
     func decodeSampleRecipe() -> Recipe {
         let url = Bundle.main.url(forResource: "sample_recipe", withExtension: "json")!
         let data = try! Data(contentsOf: url)

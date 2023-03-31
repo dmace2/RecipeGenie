@@ -24,7 +24,7 @@ struct PantryView: View {
                         } else {
                             List {
                                 ForEach(items) { item in
-                                    let ingredient = Element(text: item.name)
+                                    let ingredient = TextItem(text: item.name)
                                     GroupBox {
                                         IngredientView(ingredient: ingredient)
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -51,7 +51,7 @@ struct PantryView: View {
         }
     }
 
-    func addItems(_ ingredients: [Element]) {
+    func addItems(_ ingredients: [TextItem]) {
         ingredients.forEach { ingredient in
             guard items.filter({$0.name == ingredient.text}).isEmpty else { return }
             let pantryItem = CDIngredient(context: viewContext)

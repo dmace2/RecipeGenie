@@ -29,7 +29,10 @@ struct FSALights: Codable, Hashable {
     var sugars: LightColor
 }
 
-struct Element: Codable, Hashable {
+struct TextItem: Shoppable, Hashable  {
+    var id: String {
+        return text
+    }
     var text: String
 }
 
@@ -52,21 +55,21 @@ struct Nutrition_100g: Codable, Hashable {
 }
 
 
-struct Recipe: Identifiable, Codable, Equatable, Hashable {
+struct Recipe: Shoppable, Identifiable, Equatable, Hashable {
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
         return lhs.id == rhs.id
     }
 
     var fsa_lights_per100g: FSALights
-    var id: String
-    var ingredients: [Element]
-    var instructions: [Element]
+    let id: String
+    var ingredients: [TextItem]
+    var instructions: [TextItem]
     var nutr_per_ingredient: [Nutrition]
     var nutr_values_per100g: Nutrition_100g
     var partition: String
-    var quantity: [Element]
+    var quantity: [TextItem]
     var title: String
-    var unit: [Element]
+    var unit: [TextItem]
     var url: String
     var weight_per_ingr: [Float]
 }

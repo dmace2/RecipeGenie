@@ -371,5 +371,259 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1CC13207-5739-4E60-918D-85D815D3CE99"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShoppingCart/ShoppingCartView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "addItems(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1CC13207-5739-4E60-918D-85D815D3CE99 - 698cb795d05c2c6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Recipe_Genie.ShoppingCartView.addItems(Swift.Array&lt;Recipe_Genie.Shoppable&gt;) -&gt; ()"
+                  moduleName = "Recipe Genie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dylanmace/GitHub/RecipeMaker/RecipeGuide.swiftpm/ShoppingCart/ShoppingCartView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "240">
+               </Location>
+               <Location
+                  uuid = "1CC13207-5739-4E60-918D-85D815D3CE99 - 4973ebadb7054200"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Recipe_Genie.Shoppable) -&gt; () in Recipe_Genie.ShoppingCartView.addItems(Swift.Array&lt;Recipe_Genie.Shoppable&gt;) -&gt; ()"
+                  moduleName = "Recipe Genie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dylanmace/GitHub/RecipeMaker/RecipeGuide.swiftpm/ShoppingCart/ShoppingCartView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "152">
+               </Location>
+               <Location
+                  uuid = "1CC13207-5739-4E60-918D-85D815D3CE99 - 698cb795d05c2c6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Recipe_Genie.ShoppingCartView.addItems(Swift.Array&lt;Recipe_Genie.Shoppable&gt;) -&gt; ()"
+                  moduleName = "Recipe Genie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dylanmace/GitHub/RecipeMaker/RecipeGuide.swiftpm/ShoppingCart/ShoppingCartView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "264">
+               </Location>
+               <Location
+                  uuid = "1CC13207-5739-4E60-918D-85D815D3CE99 - 4973ebadb7054200"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Recipe_Genie.Shoppable) -&gt; () in Recipe_Genie.ShoppingCartView.addItems(Swift.Array&lt;Recipe_Genie.Shoppable&gt;) -&gt; ()"
+                  moduleName = "Recipe Genie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dylanmace/GitHub/RecipeMaker/RecipeGuide.swiftpm/ShoppingCart/ShoppingCartView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "456">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EE268949-4539-4915-AC36-8454E26B5FC0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoreData/CoreDataContainer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "init(inMemory:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EE268949-4539-4915-AC36-8454E26B5FC0 - d3eb3c021198146"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Recipe_Genie.Persistence.init(inMemory: Swift.Bool) -&gt; Recipe_Genie.Persistence"
+                  moduleName = "Recipe Genie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dylanmace/GitHub/RecipeMaker/RecipeGuide.swiftpm/CoreData/CoreDataContainer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "1048">
+               </Location>
+               <Location
+                  uuid = "EE268949-4539-4915-AC36-8454E26B5FC0 - 8f5f9bb8458b5e4d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.NSPersistentStoreDescription, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Recipe_Genie.Persistence.init(inMemory: Swift.Bool) -&gt; Recipe_Genie.Persistence"
+                  moduleName = "Recipe Genie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dylanmace/GitHub/RecipeMaker/RecipeGuide.swiftpm/CoreData/CoreDataContainer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "72">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A02B7904-5C86-4DF7-8AE6-724B8275FDBF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoreData/CoreDataContainer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "init(inMemory:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A02B7904-5C86-4DF7-8AE6-724B8275FDBF - 8f5f9bb8458b5e6e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.NSPersistentStoreDescription, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Recipe_Genie.Persistence.init(inMemory: Swift.Bool) -&gt; Recipe_Genie.Persistence"
+                  moduleName = "Recipe Genie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dylanmace/GitHub/RecipeMaker/RecipeGuide.swiftpm/CoreData/CoreDataContainer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "140">
+               </Location>
+               <Location
+                  uuid = "A02B7904-5C86-4DF7-8AE6-724B8275FDBF - 8f5f9bb8458b5e0f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.NSPersistentStoreDescription, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Recipe_Genie.Persistence.init(inMemory: Swift.Bool) -&gt; Recipe_Genie.Persistence"
+                  moduleName = "Recipe Genie"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dylanmace/GitHub/RecipeMaker/RecipeGuide.swiftpm/CoreData/CoreDataContainer.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "92">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D5483FFF-84BC-4B9F-AAF2-859067AB5FD1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoreData/CoreDataClasses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "update(with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D3803D88-BF87-4E32-B1A9-38F1A0F18F94"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoreData/CoreDataClasses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "update(with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EEE7180A-5CD7-4D19-9859-933F4201288D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShoppingCart/ShoppingCartView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "addItems(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CCB62B21-745E-432C-BD7B-E61920A2E62A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShoppingCart/ShoppingCartView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "addItems(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2CF8715B-7D71-4E71-8DFB-CEE6B555DBCC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoreData/CoreDataClasses.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "generateStruct(withType:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
