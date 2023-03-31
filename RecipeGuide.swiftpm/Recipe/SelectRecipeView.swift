@@ -10,12 +10,13 @@ import Combine
 class SelectRecipeSearchModel: ObservableObject {
     @Published var searchedRecipes: [Recipe] = []
     @Published var searchText = ""
+    @Published var maxShowingCount = 0
     var anyCancellable: AnyCancellable?
 
     init() {
         self.searchedRecipes = RecipeDecoder.shared.fullRecipes
 
-        anyCancellable = RecipeDecoder.shared.$fullRecipes.sink { _ in
+        anyCancellable = RecipeDecoder.shared.$fullRecipes.sink { newval in
             self.searchedRecipes = RecipeDecoder.shared.fullRecipes
             self.search(self.searchText)
 
@@ -23,12 +24,20 @@ class SelectRecipeSearchModel: ObservableObject {
     }
 
     func search(_ text: String) {
+        defer { updateShowCount() }
         guard searchText != "" else {
             withAnimation { searchedRecipes = RecipeDecoder.shared.fullRecipes }
             return
         }
         withAnimation {
             searchedRecipes = RecipeDecoder.shared.fullRecipes.filter { $0.title.lowercased().contains(text.lowercased())}
+            maxShowingCount = min(searchedRecipes.count, maxShowingCount)
+        }
+    }
+
+    func updateShowCount() {
+        withAnimation {
+            maxShowingCount = min(maxShowingCount + 20, searchedRecipes.count)
         }
     }
 }
@@ -45,7 +54,7 @@ struct SelectRecipeView: View {
                 ProgressView("Loading Recipes...")
             } else {
                 List {
-                    ForEach(recipeSelectionManager.searchedRecipes, id: \.id) { item in
+                    ForEach(recipeSelectionManager.searchedRecipes[0..<recipeSelectionManager.maxShowingCount], id: \.id) { item in
                         HStack {
                             RecipeOverviewView(recipe: item)
                             Spacer()
@@ -58,6 +67,13 @@ struct SelectRecipeView: View {
                                     selectedItems.append(item)
                                 } else { selectedItems.remove(at: selectedItems.firstIndex(of: item)!)}
                             } }
+                    }
+                    if recipeSelectionManager.maxShowingCount < recipeSelectionManager.searchedRecipes.count {
+                        Section {
+                            Button("Show More Recipes") {
+                                recipeSelectionManager.updateShowCount()
+                            }
+                        }
                     }
                 }
                 .searchable(text: $recipeSelectionManager.searchText)
