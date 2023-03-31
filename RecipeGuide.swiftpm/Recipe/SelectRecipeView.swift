@@ -45,7 +45,7 @@ struct SelectRecipeView: View {
                 ProgressView("Loading Recipes...")
             } else {
                 List {
-                    ForEach(RecipeDecoder.shared.fullRecipes, id: \.id) { item in
+                    ForEach(recipeSelectionManager.searchedRecipes, id: \.id) { item in
                         HStack {
                             RecipeOverviewView(recipe: item)
                             Spacer()

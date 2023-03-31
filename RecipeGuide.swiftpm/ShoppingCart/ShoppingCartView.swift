@@ -26,6 +26,9 @@ struct ShoppingCartView: View {
         }
         return recipes.sorted { $0.title < $1.title }
     }
+    private var ingredients: [TextItem] {
+        return items.compactMap { $0.generateStruct(withType: TextItem.self)}
+    }
 
     var body: some View {
         NavigationView {
@@ -42,21 +45,24 @@ struct ShoppingCartView: View {
                                             }
                                         }
                                         .listRowSeparator(.hidden)
-                                    }.onDelete(perform: onDelete(_:))
+                                    }.onDelete {
+                                        onDelete($0, type: .recipe)
+                                    }
                                 } header: {
                                     Label("Recipes", systemImage: "carrot.fill")
                                         .font(.headline).foregroundColor(.red)
                                 }
                                 
                                 Section {
-                                    ForEach(items.compactMap({$0.generateStruct(withType: TextItem.self)}), id: \.text) { item in
+                                    ForEach(ingredients, id: \.text) { item in
                                         GroupBox {
                                             IngredientView(ingredient: item)
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                         }
                                         .listRowSeparator(.hidden)
+                                    }.onDelete {
+                                        onDelete($0, type: .ingredient)
                                     }
-                                    .onDelete(perform: onDelete(_:))
                                 } header: {
                                     Label("Extra Ingredients", systemImage: "list.bullet.circle.fill")
                                         .font(.headline).foregroundColor(.blue)
@@ -85,15 +91,25 @@ struct ShoppingCartView: View {
         }
         viewContext.perform {
             try! viewContext.save()
+            let editedRecipes = cartItems.compactMap({$0 as? Recipe})
+            if !editedRecipes.isEmpty {
+                NotificationCenter.default.post(name: Constants.shoppingCartRecipesEditedNotif,
+                                                object: editedRecipes,
+                                                userInfo: ["action": "added"])
+            }
         }
     }
 
-    func onDelete(_ deleteOffsets: IndexSet) {
+    func onDelete(_ deleteOffsets: IndexSet, type: Shoppables) {
         for idx in deleteOffsets {
-            viewContext.delete(items[idx])
+            let arr: [Shoppable] = (type == .ingredient) ? ingredients : recipes
+            guard let elem = items.firstIndex(where: {$0.id == arr[idx].id}) else { continue }
+            viewContext.delete(items[elem])
         }
         try? viewContext.save()
-        NotificationCenter.default.post(name: Constants.pantryEditedNotif, object: nil)
+        NotificationCenter.default.post(name: Constants.shoppingCartRecipesEditedNotif,
+                                        object: items.compactMap({$0.generateStruct(withType: Recipe.self)}),
+                                        userInfo: ["action": "deleted"])
     }
 }
 

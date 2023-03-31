@@ -102,6 +102,7 @@ class RecipeDecoder: ObservableObject {
             return good ? recipe : nil
         })
     }
+
     func decodeSampleRecipe() -> Recipe {
         let url = Bundle.main.url(forResource: "sample_recipe", withExtension: "json")!
         let data = try! Data(contentsOf: url)

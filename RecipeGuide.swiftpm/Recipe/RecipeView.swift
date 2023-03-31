@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit
+import Combine
 
 struct FSAView: View {
     var elem: FSALights
@@ -52,6 +53,10 @@ struct TextSpacerTextView: View {
 
 struct RecipeView: View {
     let recipe: Recipe
+    @State var anyCancellable: AnyCancellable?
+    @State var inShoppingCart: Bool = false
+    @Environment(\.managedObjectContext) var viewContext
+    @Namespace var namespace
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -106,25 +111,88 @@ struct RecipeView: View {
                 }
             }.listStyle(.sidebar)
         }
+        .toolbar {
+            AnyView(generateToolbar())
+        }
         .background(Color(UIColor.systemGroupedBackground))
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            verifyInitialShoppingCartState()
+            anyCancellable = NotificationCenter.default.publisher(for: Constants.shoppingCartRecipesEditedNotif)
+                .sink(receiveValue: { notif in
+                    print(notif)
+                    guard let updatedRecipes = notif.object as? [Recipe],
+                          let operation = notif.userInfo?["action"] as? String,
+                          updatedRecipes.contains(recipe) else { return }
+                    self.inShoppingCart = operation == "added"
+                })
+        }
+    }
+
+
+    @ViewBuilder func generateToolbar() -> any View {
+        if inShoppingCart {
+            Button {
+                withAnimation {
+                    guard let elem = getItems()?.first(where: {$0.id == recipe.id }) else { return }
+                    viewContext.delete(elem)
+                    do {
+                        try viewContext.save()
+                        inShoppingCart.toggle()
+                    } catch {
+                        return
+                    }
+                }
+            } label: {
+                Image(systemName: "trash.fill")
+            }
+        } else {
+            Button {
+                withAnimation {
+                    let elem = ShoppableItem(context: viewContext)
+                    elem.update(with: recipe)
+                    do {
+                        try viewContext.save()
+                        inShoppingCart.toggle()
+                    } catch {
+                        return
+                    }
+                }
+            } label: {
+                Image(systemName: "cart.fill")
+            }
+        }
     }
 
     func getSentences(from text: String) -> [String] {
-            let regex = try! NSRegularExpression(pattern: "(?<=[.?!])\\s+(?=[A-Z])", options: [])
-            let range = NSRange(text.startIndex..<text.endIndex, in: text)
-            let matches = regex.matches(in: text, options: [], range: range)
-            var sentences = [String]()
-            var previousEndIndex = text.startIndex
-            for match in matches {
-                let startIndex = text.index(text.startIndex, offsetBy: match.range.lowerBound)
-                let endIndex = text.index(text.startIndex, offsetBy: match.range.upperBound)
-                sentences.append(String(text[previousEndIndex..<startIndex]))
-                previousEndIndex = endIndex
-            }
-            sentences.append(String(text[previousEndIndex..<text.endIndex]))
-            return sentences
+        let regex = try! NSRegularExpression(pattern: "(?<=[.?!])\\s+(?=[A-Z])", options: [])
+        let range = NSRange(text.startIndex..<text.endIndex, in: text)
+        let matches = regex.matches(in: text, options: [], range: range)
+        var sentences = [String]()
+        var previousEndIndex = text.startIndex
+        for match in matches {
+            let startIndex = text.index(text.startIndex, offsetBy: match.range.lowerBound)
+            let endIndex = text.index(text.startIndex, offsetBy: match.range.upperBound)
+            sentences.append(String(text[previousEndIndex..<startIndex]))
+            previousEndIndex = endIndex
         }
+        sentences.append(String(text[previousEndIndex..<text.endIndex]))
+        return sentences
+    }
+
+    func verifyInitialShoppingCartState() {
+        let request = ShoppableItem.fetchRequest()
+        guard let vals = getItems() else {
+            print("failed to get from CD")
+            return
+        }
+        inShoppingCart = vals.contains(where: {$0.id == recipe.id})
+    }
+
+    private func getItems() -> [ShoppableItem]? {
+        let request = ShoppableItem.fetchRequest()
+        return try? Persistence.shared.container.viewContext.fetch(request) as? [ShoppableItem]
+    }
 }
 
 extension Color {
