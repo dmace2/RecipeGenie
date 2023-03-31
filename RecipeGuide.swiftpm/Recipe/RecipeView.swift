@@ -44,7 +44,7 @@ struct TextSpacerTextView: View {
         HStack {
             Text(label).bold()
             Spacer()
-            Text("\(otherContent)")
+            Text(otherContent)
                 .font(.callout)
                 .foregroundColor(.secondary)
         }

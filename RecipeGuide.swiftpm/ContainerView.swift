@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContainerView: View {
+    @State var showAboutView = false
     var body: some View {
         TabView {
             RecipeOptionsView().tabItem {
@@ -20,6 +21,10 @@ struct ContainerView: View {
 
             ShoppingCartView().tabItem {
                 Label("Cart", systemImage: "cart.fill")
+            }
+
+            AboutView().tabItem {
+                Label("About", systemImage: "mug.fill")
             }
         }
     }

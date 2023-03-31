@@ -16,7 +16,7 @@ struct CapabilityView: View {
         HStack(alignment: .center) {
             Image(systemName: systemImg)
                 .resizable().scaledToFit()
-                .frame(width: 40)
+                .frame(width: 40, height: 40)
                 .font(.body.weight(.bold))
             VStack(alignment: .leading) {
                 Text(title).font(.body.weight(.bold))
@@ -24,7 +24,6 @@ struct CapabilityView: View {
             }
             .padding(.horizontal)
         }
-        .padding(.bottom, 30)
     }
 }
 
@@ -56,12 +55,7 @@ struct CapabilitiesView: View {
 
                 Spacer().frame(height: 100)
                 
-                CapabilityView(systemImg: "list.clipboard", title: "Keep Tabs on Your Pantry",
-                               description: "Store all the ingredients in your house to keep track of what you have used and what you are missing")
-                CapabilityView(systemImg: "carrot", title: "Find New Meals",
-                               description: "Get recommendations on new recipes to try, ranging from bakery items to full home-cooked entrees")
-                CapabilityView(systemImg: "rectangle.dashed", title: "Work Within Your Items",
-                               description: "Add an additional filter for recipes only using items in your closet to avoid a trip to the grocery store")
+                CapabilityListView()
                 Spacer()
 
                 HStack {
